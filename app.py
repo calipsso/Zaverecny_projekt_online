@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, url_for, flash, redirect
@@ -8,14 +9,15 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 #from flask import jsonify
 from flask import request
+from extensions import db, login_manager
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = os.urandom(24)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://urici3i0icy8cuufham5:FrtbL6FqnCsROZMWocDBkgoOeoZC7R@b81s1xhecmfxnpmteb27-postgresql.services.clever-cloud.com:50013/b81s1xhecmfxnpmteb27"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
+db.init_app(app)
 
-login_manager = LoginManager(app)
+login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 from models import User
@@ -76,8 +78,8 @@ def new_event():
         description = request.form.get('description')
         category = request.form.get('category')
         location = request.form.get('location')
-        date = datetime.strptime(request.form.get('date'), '%Y-%m-%d').date()
-        new_event = Event(title=title, description=description, category=category, location=location, date=date, organizer=current_user)
+        #date_posted = request.form.get('date')
+        new_event = Event(title=title, description=description, category=category, location=location, organizer=current_user)
         db.session.add(new_event)
         db.session.commit()
         flash('Your event has been created!', 'success')
@@ -107,6 +109,7 @@ def edit_event(event_id):
         event.description = request.form.get('description')
         event.category = request.form.get('category')
         event.location = request.form.get('location')
+        event.date_posted = request.form.get('date_posted')
         try:
             db.session.commit()
             flash('Event updated successfully!', 'success')

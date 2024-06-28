@@ -1,5 +1,5 @@
 from datetime import datetime
-from main import db, login_manager
+from extensions import db, login_manager
 from flask_login import UserMixin
 
 
@@ -21,5 +21,5 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    #date_posted = db.Column(db.DateTime, nullable=False, default=datetime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
