@@ -8,26 +8,44 @@
     <p>Update the event title, description, category, and location.</p>
 </div>
 
-<div class="container">
-    <h2 class="my-4">Edit Event</h2>
+<div class="container mt-4">
+    <h2 class="my-4" style="color: #0277bd;">Edit Event</h2>
     <form method="POST">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}">
+            <label for="title" style="color: #0277bd;">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" style="border-color: #64b5f6;">
         </div>
         <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description">{{ event.description }}</textarea>
+            <label for="description" style="color: #0277bd;">Description</label>
+            <textarea class="form-control" id="description" name="description" style="border-color: #64b5f6;">{{ event.description }}</textarea>
         </div>
         <div class="form-group">
-            <label for="category">Category</label>
-            <input type="text" class="form-control" id="category" name="category" value="{{ event.category }}">
+            <label for="category" style="color: #0277bd;">Category</label>
+            <input type="text" class="form-control" id="category" name="category" value="{{ event.category }}" style="border-color: #64b5f6;">
         </div>
         <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" class="form-control" id="location" name="location" value="{{ event.location }}">
+            <label for="location" style="color: #0277bd;">Location</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ event.location }}" style="border-color: #64b5f6;">
         </div>
-        <button type="submit" class="btn btn-primary">Update Event</button>
+        <button type="submit" class="btn btn-primary btn-lg" style="background-color: #64b5f6; border-color: #64b5f6;">Update Event</button>
     </form>
 </div>
+
+<script>
+    // JavaScript pre zmenu farby tlačidla na zelenú po prejdení myšou
+    const updateEventBtn = document.querySelector('.btn-primary');
+
+    if (updateEventBtn) {
+        updateEventBtn.addEventListener('mouseover', () => {
+            updateEventBtn.style.backgroundColor = '#8bc34a';  // Zelená farba
+            updateEventBtn.style.borderColor = '#8bc34a';     // Zelená farba aj pre okraj
+        });
+
+        updateEventBtn.addEventListener('mouseout', () => {
+            updateEventBtn.style.backgroundColor = '#64b5f6';  // Pôvodná modrá farba
+            updateEventBtn.style.borderColor = '#64b5f6';     // Pôvodná modrá farba aj pre okraj
+        });
+    }
+</script>
 {% endblock %}
+
